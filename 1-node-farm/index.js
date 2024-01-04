@@ -13,8 +13,8 @@ console.log("File Write Successful")
 
 //Non-Blocking , asynchronous way of writing
 
-fs.readFile('./txt/start.txt', 'utf-8', (err, data1) => {
-    if(err) throw err;
+fs.readFile('./txt/starthh.txt', 'utf-8', (err, data1) => {
+    if(err) return console.log("Error", err);
     fs.readFile(`./txt/${data1}.txt`, 'utf-8', (err, data2) => {
         if(err) throw err;
         console.log(data2);
