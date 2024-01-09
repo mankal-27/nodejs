@@ -12,3 +12,9 @@ console.log(calc2.add(2,8));
 
 const {add, multiply, divide} = require('./test-module-1');
 console.log(add(2,9));
+
+//Caching functions
+
+require('./test-module-2')();
+require('./test-module-2')();
+require('./test-module-2')();
