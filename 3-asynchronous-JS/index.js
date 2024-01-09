@@ -31,5 +31,5 @@ readFilePro(`${__dirname}/dog.txt`)
         console.log('Random Dog Image Saved')
     })
     .catch(err => {
-        if(err) return console.log(err.message)
+         console.log(err)
     });
