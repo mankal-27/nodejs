@@ -11,18 +11,22 @@ server.on('request', (req, res) => {
     // })
 
     //Solution2 : Streams
+    // const readableStream = fs.createReadStream('test-file.txt');
+    // readableStream.on('data', chunk => {
+    //     res.write(chunk);
+    // });
+    // readableStream.on('end', () => {
+    //     res.end();
+    // });
+    // readableStream.on('error', err => {
+    //     console.log(err);
+    //     res.statusCode = 500;
+    //     res.end("File not found");
+    // });
+
+    //Solution3
     const readableStream = fs.createReadStream('test-file.txt');
-    readableStream.on('data', chunk => {
-        res.write(chunk);
-    });
-    readableStream.on('end', () => {
-        res.end();
-    });
-    readableStream.on('error', err => {
-        console.log(err);
-        res.statusCode = 500;
-        res.end("File not found");
-    });
+    readableStream.pipe(res); // readableSource.pipe(writeStream)
 })
 
 server.listen(8000, '127.0.0.1', () => {
