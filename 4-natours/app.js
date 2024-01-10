@@ -1,15 +1,26 @@
-const express = require('express');
 const fs = require('fs');
-const app = express();
+const express = require('express');
 
+const app = express();
 app.use(express.json());
 
-const PORT = 3000;
+app.use((req, res, next) => {
+    console.log('Hello From Middleware');
+    next();
+});
+
+app.use((req, res, next) => {
+    req.requestTime = new Date().toISOString();
+    next();
+});
+
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`))
 
 const getAllTours = (req, res) => {
+    console.log(req.requestTime);
     res.status(200).json({
         status:'success',
+        requestedAt : req.requestTime,
         results: tours.length,
         data: {
             tours
@@ -100,7 +111,8 @@ app
     .get(getTour)
     .patch(updateTour)
     .delete(deleteTour);
-    
+
+const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`App running on port ${PORT}`);
 });
