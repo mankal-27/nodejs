@@ -19,9 +19,9 @@ mongoose
 const tourSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: [true, 'A Tour must have a name'],
-        unqiue: true
-    },
+        required: [true, 'A tour must have a name'],
+        unique: true
+      },
     rating: {
         type: Number,
         default: 4.5
@@ -33,6 +33,24 @@ const tourSchema = new mongoose.Schema({
 });
 
 const Tour = mongoose.model('Tour', tourSchema);
+
+const testTour = new Tour({
+    name: 'Belgaum Beach',
+    price: 1344,
+    rating: 4.3
+});
+
+testTour
+    .save()
+    .then(doc => {
+    console.log(doc);
+}).catch(err => {
+    if (err.code === 11000) {
+        console.log('Duplicate key error:', err.message);
+    } else {
+        console.log('Error while saving:', err);
+    }
+})
 // Server Listener
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
